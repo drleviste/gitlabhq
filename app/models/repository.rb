@@ -144,7 +144,6 @@ class Repository
     end
   end
 
-
   def cache_key(type)
     "#{type}:#{path_with_namespace}"
   end
@@ -196,7 +195,7 @@ class Repository
       nil
     end
   end
-
+  
   # Returns url for submodule
   #
   # Ex.

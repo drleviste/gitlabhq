@@ -11,11 +11,12 @@ class UsersController < ApplicationController
     if !current_user && @projects.empty?
       return authenticate_user!
     end
+
     @groups = @user.groups.accessible_to(current_user)
     @events = @user.recent_events.where(project_id: @projects.pluck(:id)).limit(20)
     @title = @user.name
 
-    @repositories.collect { |raw|
+    @repositories.map do |raw|
       if raw.exists?
         commits_log = raw.graph_log
         @commits_log = commits_log.select do |u_email|
@@ -25,20 +26,19 @@ class UsersController < ApplicationController
         end
         @timestamps = {}
         @commits_log = @commits_log.group_by { |commit_date|
-          commit_date }.map { |k, v|
-                    hash = {"#{k}" => v.count}
-                    @timestamps.merge!(hash)
-                  }
-                 
+        commit_date }.map do |k, v|
+          hash = {"#{k}" => v.count}
+          @timestamps.merge!(hash)
+        end
         if @timestamps.empty?
-          @timeCopy = DateTime.now.to_date()
+          @time_copy = DateTime.now.to_date
         else
-          @timeCopy = Time.at(@timestamps.first.first.to_i).to_date
+          @time_copy = Time.at(@timestamps.first.first.to_i).to_date
           @timestamps = @timestamps.to_json
-        end   
+        end
 
       end
-    }
+    end
   end
 
   def determine_layout

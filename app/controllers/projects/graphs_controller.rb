@@ -11,7 +11,6 @@ class Projects::GraphsController < Projects::ApplicationController
         fetch_graph
       end
     end
-   
   end
 
   private

@@ -4,7 +4,7 @@
     var cal = new CalHeatMap();
       cal.init({
         data: window.timestamps,
-        start: new Date(#{@timeCopy.year-1}, #{@timeCopy.month}),
+        start: new Date(#{@time_copy.year-1}, #{@time_copy.month}),
         domainLabelFormat: "%b",
         id : "cal-heatmap",
         domain : "month",
