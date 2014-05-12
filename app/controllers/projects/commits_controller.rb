@@ -14,7 +14,6 @@ class Projects::CommitsController < Projects::ApplicationController
 
     @commits = @repo.commits(@ref, @path, @limit, @offset)
 
-   #binding.pry
     respond_to do |format|
       format.html # index.html.erb
       format.json { pager_json("projects/commits/_commits", @commits.size) }
