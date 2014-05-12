@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         end.map do |graph_log|
           Date.parse(graph_log[:date]).to_time.to_i
         end
-        @timestamps = { }
+        @timestamps = {}
         @commits_log = @commits_log.group_by { |commit_date|
         commit_date }.map do |k, v|
           hash = {"#{k}" => v.count}
