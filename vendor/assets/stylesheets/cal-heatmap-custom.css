@@ -1,3 +1,4 @@
+
 .qi {
 	background-color: #999;
 	fill: #999
@@ -16,31 +17,31 @@ Remove comment to apply this style to date with value equal to 0
 .q1
 {
 	background-color: #dae289;
-	fill: #b2cce5
+	fill: #ededed
 }
 
 .q2
 {
 	background-color: #cedb9c;
-	fill: #84add6
+	fill: #ACD5F2
 }
 
 .q3
 {
 	background-color: #b5cf6b;
-	fill: #6699cc
+	fill: #7FA8D1
 }
 
 .q4
 {
 	background-color: #637939;
-	fill: #5b89b7
+	fill: #49729B
 }
 
 .q5
 {
 	background-color: #3b6427;
-	fill: #517aa3
+	fill: #254E77
 }
 
 .domain-background {
