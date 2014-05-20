@@ -50,33 +50,38 @@ Remove comment to apply this style to date with value equal to 0
 }
 
 .ch-tooltip {
-	padding: 10px;
-	background: #222;
-	color: #bbb;
-	font-size: 12px;
-	line-height: 1.4;
-	width: 140px;
-	position: absolute;
-	z-index: 99999;
-	text-align: center;
-	border-radius: 2px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-	display: none;
-	box-sizing: border-box;
+  position: absolute;
+  display: none;
+  margin-top: 23px;
+  margin-left: 1px;
 }
-
-.ch-tooltip::after{
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-color: transparent;
-	border-style: solid;
-	content: "";
-	padding: 0;
-	display: "block";
-	bottom: -6px;
-	left: 50%;
-	margin-left: -6px;
-    border-width: 6px 6px 0;
-    border-top-color: #222;
+.ch-tooltip span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 6px;
+}
+.ch-tooltip span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+:hover.ch-tooltip span {
+  visibility: visible;
+  opacity: 0.8;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
 }

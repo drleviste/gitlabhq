@@ -3,6 +3,7 @@
     window.timestamps = #{@timestamps};
     var cal = new CalHeatMap();
       cal.init({
+        itemName: ["commit"],
         data: window.timestamps,
         start: new Date(#{@time_copy.year-1}, #{@time_copy.month}),
         domainLabelFormat: "%b",
@@ -16,6 +17,7 @@
         label: { position: "top" },
         domainMargin: 1,
         legend: [0,1,2,5],
-        legendCellPadding: 3
+        legendCellPadding: 3,
+        // subDomainTitleFormat: {count} {"commit"} {date}
       });
 
