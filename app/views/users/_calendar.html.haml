@@ -2,6 +2,30 @@
   :javascript 
     window.timestamps = #{@timestamps};
     var cal = new CalHeatMap();
+
+    function myFunction(date,nb)
+        {
+            $("#onClick-placeholder").html("Pushed <b>" + (nb === null ? "no" : nb) + " " + " commits</b> on " + date.toDateString());
+        };
+
+    function ClickOutsideCheck(e)
+        {
+            var el = e.target;
+            var popup = $('.popup:visible')[0];
+            if(popup==undefined) return true;
+
+            while (true){
+                if (el == popup ) {
+                  return true;
+              } else if (el == document) {
+                  $(".popup").hide();
+                  return false;
+              } else {
+                  el = $(el).parent()[0];
+              }
+          }
+      };
+
       cal.init({
         itemName: ["commit"],
         data: window.timestamps,
@@ -16,8 +40,12 @@
         colLimit: 4,
         label: { position: "top" },
         domainMargin: 1,
-        legend: [0,1,2,5],
+        legend: [0,1,4,7],
         legendCellPadding: 3,
-        // subDomainTitleFormat: {count} {"commit"} {date}
+        onClick: function (date, count) { 
+            myFunction(date,count)
+                      }
       });
+      $(document).bind('mousedown.popup', ClickOutsideCheck);
+#onClick-placeholder
 
