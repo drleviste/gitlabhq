@@ -36,7 +36,7 @@ module UsersHelper
           end
         end
         project_commit = project_commits(timestamps_copy,
-                                        raw_repository.path_with_namespace)
+                                         raw_repository.path_with_namespace)
         projects.merge!(timestamps_copy)
       end
     end
