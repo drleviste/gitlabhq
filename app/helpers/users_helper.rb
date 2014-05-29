@@ -28,14 +28,15 @@ module UsersHelper
         commits_log.each do |k, v|
           if timestamps_copy.has_key?("#{k}")
             timestamps_copy["#{k}"].
-              merge!( { raw_repository.path_with_namespace => v.count } )
+              merge!(raw_repository.path_with_namespace => v.count)
           else
-            hash = { "#{k}" => { raw_repository.path_with_namespace => v.count } }
+            hash = { "#{k}" => { raw_repository.path_with_namespace => v.count }
+                                }
             timestamps_copy.merge!(hash)
           end
         end
         project_commit = project_commits(timestamps_copy,
-        raw_repository.path_with_namespace)
+                                        raw_repository.path_with_namespace)
         projects.merge!(timestamps_copy)
       end
     end
