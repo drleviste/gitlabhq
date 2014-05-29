@@ -1,5 +1,4 @@
 module UsersHelper
-
   def create_timestamp(user_projects)
     timestamps = {}
     user_projects.each do |raw_repository|
@@ -8,7 +7,7 @@ module UsersHelper
         commits_log.each do |k, v|
           hash = { "#{k}" => v.count }
           if timestamps.has_key?("#{k}")
-            timestamps.merge!(hash) { |k, v, v2| v = v.to_i + v2}
+            timestamps.merge!(hash) { |k, v, v2| v = v.to_i + v2 }
           else
             timestamps.merge!(hash)
           end
@@ -16,7 +15,6 @@ module UsersHelper
       end
     end
     timestamps
-
   end
 
   def create_timestamps_by_project(user_projects)
@@ -30,14 +28,14 @@ module UsersHelper
         commits_log.each do |k, v|
           if timestamps_copy.has_key?("#{k}")
             timestamps_copy["#{k}"].
-              merge!( {raw_repository.path_with_namespace => v.count} )
+              merge!( { raw_repository.path_with_namespace => v.count } )
           else
-            hash = { "#{k}" => {raw_repository.path_with_namespace => v.count} }
+            hash = { "#{k}" => { raw_repository.path_with_namespace => v.count } }
             timestamps_copy.merge!(hash)
           end
         end
-        project_commit = project_commits(timestamps_copy, 
-          raw_repository.path_with_namespace)
+        project_commit = project_commits(timestamps_copy,
+        raw_repository.path_with_namespace)
         projects.merge!(timestamps_copy)
       end
     end

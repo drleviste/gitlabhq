@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe UsersController do
-  let(:user)    { create(:user, username: 'test',
-                                name: 'Test', email: 'test@aelogica.com',
-                                password: 'test1234')
+  let(:user) { create(:user, username: 'test', name: 'Test',
+                      email: 'test@aelogica.com', password: 'test1234')
   }
 
   let(:project) { create(:project) }
