@@ -1,12 +1,3 @@
-.onClicksecond {
-  font-size: 14px;
-  display: block; }
-
-#commitActivity
-{
-  padding: 5px 0 5px 0;
-}
-
 #onClickplaceholder
 {
   padding: inherit;
@@ -14,7 +5,39 @@
 
 #onClick-placeholder
 {
-  padding: 2px 0 2px 0;
+  padding: 0 0 2px 0;
+}
+
+#commit_activity
+{
+  padding: 5px 0 0 0;
+}
+
+.onClicksecond 
+{
+  font-size: 14px;
+  display: block; 
+}
+
+.activty_title
+{ 
+  font-weight: 500
+}
+
+.onclick_hr
+{
+  padding:0px; 
+  margin:10px 0 10px 0;
+}
+
+.commit_date
+{
+  color: #999;
+}
+
+.activity_summary
+{
+  font-size: 14px;
 }
 
 .qi {
@@ -26,9 +49,15 @@
 Remove comment to apply this style to date with value equal to 0
 .q0
 {
+<<<<<<< HEAD
   background-color: #fff;
   fill: #fff;
   stroke: #ededed
+=======
+  background-color: #fff;
+  fill: #fff;
+  stroke: #ededed
+>>>>>>> f6162b5923814fa5a65fd3afa5f99c40f374afc8
 }
 */
 
