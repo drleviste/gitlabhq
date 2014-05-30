@@ -1,5 +1,5 @@
 var options = {month: "short", day: "numeric"};
-function myFunction(data, date, nb)
+function commitDetails(data, date, nb)
   {
     $("#onClick-placeholder").hide();
 
@@ -39,7 +39,7 @@ var cal = new CalHeatMap();
           $("#loading-commits").fadeIn();
           console.log('success')
           console.log(data)
-          myFunction(data, date, count)
+          commitDetails(data, date, count)
           setTimeout(function() {$("#onClick-placeholder").fadeIn(500);}, 400);
           setTimeout(function() {$("#loading-commits").hide();}, 400);
         },

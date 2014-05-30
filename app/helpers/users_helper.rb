@@ -1,13 +1,15 @@
 module UsersHelper
   def create_timestamp(user_projects)
+
     timestamps = {}
     user_projects.each do |raw_repository|
       if raw_repository.exists?
-        commits_log = commits_log_by_commit_date(raw_repository.graph_log)
-        commits_log.each do |k, v|
-          hash = { "#{k}" => v.count }
-          if timestamps.has_key?("#{k}")
-            timestamps.merge!(hash) { |k, v, v2| v = v.to_i + v2 }
+        commits_log = raw_repository.commits_log_of_user_by_date(@user)
+        commits_log.each do |timestamp_date, commits|
+          hash = { "#{timestamp_date}" => commits }
+          if timestamps.has_key?("#{timestamp_date}")
+            timestamps.merge!(hash) { |timestamp_date, commits, new_commits|
+                                      commits = commits.to_i + new_commits }
           else
             timestamps.merge!(hash)
           end
@@ -18,19 +20,19 @@ module UsersHelper
   end
 
   def create_timestamps_by_project(user_projects)
-    projects = {}
+  projects = {}
     project_commit = {}
     timestamps_copy = {}
 
     user_projects.each do |raw_repository|
       if raw_repository.exists?
-        commits_log = commits_log_by_commit_date(raw_repository.graph_log)
-        commits_log.each do |k, v|
-          if timestamps_copy.has_key?("#{k}")
-            timestamps_copy["#{k}"].
-              merge!(raw_repository.path_with_namespace => v.count)
+        commits_log = raw_repository.commits_log_of_user_by_date(@user)
+        commits_log.each do |timestamp_date, commits|
+          if timestamps_copy.has_key?("#{timestamp_date}")
+            timestamps_copy["#{timestamp_date}"].
+              merge!(raw_repository.path_with_namespace => commits)
           else
-            hash = { "#{k}" => { raw_repository.path_with_namespace => v.count }
+            hash = { "#{timestamp_date}" => { raw_repository.path_with_namespace => commits }
                                 }
             timestamps_copy.merge!(hash)
           end
@@ -71,10 +73,17 @@ module UsersHelper
     create_time_copy(@user_projects).to_formatted_s(:long).to_s
   end
 
+  def get_email
+  end
+
+  def unix_timestamp_converter
+  end
+
   def commits_log_by_commit_date(graph_log)
     graph_log.select { |u_email| u_email[:author_email] == @user.email }.
       map { |graph_log| Date.parse(graph_log[:date]).to_time.to_i }.
-      group_by { |commit_date| commit_date }
+      group_by { |commit_date| commit_date }.
+      inject({}) {|hash, (k,v)| hash[k]=v.count; hash}
   end
 
   def commit_activity_match(user_activities)
