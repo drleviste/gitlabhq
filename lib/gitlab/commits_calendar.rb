@@ -35,7 +35,6 @@ module Gitlab
     def self.populate_timestamps_by_project(commits_log, timestamps,
                                             raw_repository)
       commits_log.each do |timestamp_date, commits_count|
-        binding.pry
         if timestamps.has_key?("#{timestamp_date}")
           timestamps["#{timestamp_date}"].
             merge!(raw_repository.path_with_namespace => commits_count)

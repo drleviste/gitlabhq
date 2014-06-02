@@ -15,7 +15,7 @@ function myFunction(data, date, nb)
 var cal = new CalHeatMap();
   cal.init({
     itemName: ["commit"],
-    data: window.timestamps,
+    data: CommitsCalendar.timestamps,
     start: new Date(CommitsCalendar.starting_year, CommitsCalendar.starting_month),
     domainLabelFormat: "%b",
     id : "cal-heatmap",
@@ -31,7 +31,7 @@ var cal = new CalHeatMap();
     legendCellPadding: 3,
     onClick: function (date, count) { 
       $.ajax({
-        url: window.path,
+        url: CommitsCalendar.path,
         data: {date: date},
         dataType: 'json',
         success: function(data) {
