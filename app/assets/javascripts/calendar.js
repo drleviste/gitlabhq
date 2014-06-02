@@ -2,13 +2,12 @@ var options = {month: "short", day: "numeric"};
 function myFunction(data, date, nb)
   {
     $("#onClick-placeholder").hide();
-
-    $("#onClick-placeholder").html("<span class='onClicksecond'><b>" + (nb === null ? "no" : nb) + "<font color='#999'></b> commit" + ((nb!=1)?'s':'') + " " + date.toLocaleDateString("en-US",options) + "</font><hr style='padding:0px;margin:5px 0 5px 0' /></span>");
+    $("#onClick-placeholder").html("<span class='onClicksecond'><b>" + (nb === null ? "no" : nb) + "</b><span class='commit_date'> commit" + ((nb!=1)?'s':'') + " " + date.toLocaleDateString("en-US",options) + "</span><hr class='onclick_hr'></span>");
 
     $.each(data, function (key, data) {
       console.log(key)
       $.each(data, function (index, data) {
-        $("#onClick-placeholder").append("Pushed <b>" + (data === null ? "no" : data) + " commit" + ((data!=1)?'s':'') +"</b> to <a href='/" + index + "'>" + index + "</a><hr style='padding:0px; margin:5px 0 5px 0' />")
+      $("#onClick-placeholder").append("Pushed <b>" + (data === null ? "no" : data) + " commit" + ((data!=1)?'s':'') +"</b> to <a href='/" + index + "'>" + index + "</a><hr class='onclick_hr'>")
       })
     })
   };

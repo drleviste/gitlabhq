@@ -1,7 +1,6 @@
-#commitActivity
+#commit_activity
   #onClickplaceholder
-    %span{:style => "font-size: 17px; font-weight: 500"} Commit Activity:
-
+    %h4.activity_title Commit Activity:
   #loading-commits
     %section.text-center
       %h3
@@ -9,15 +8,17 @@
 
   #onClick-placeholder
     %span.onClicksecond
-    - if @timestamps==="{}"
-      %strong #{@user.username}
-      has no activity
+    - if @timestamps.empty?
+      %span.activity_summary
+        %strong> #{@user.username}
+        has no activity
     - else
-      %strong #{@user.username}'s
-      last commit was on
-      %font{color: "#999"} #{last_commit_date}
-    
-    %hr{style: "padding:0px; margin:10px 0 5px 0"}/
+      %span.activity_summary
+        %strong> #{@user.username}
+        's last commit was on
+        %span.commit_date #{@last_commit_date}
+
+    %hr.onclick_hr
 
 :javascript
   $("#loading-commits").hide();
