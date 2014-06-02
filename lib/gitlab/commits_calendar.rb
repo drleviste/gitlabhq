@@ -1,19 +1,17 @@
 module Gitlab
-  class Calendar
-
+  class CommitsCalendar
     def self.create_timestamp(user_projects, user, show_activity)
       timestamps = {}
       user_projects.each do |raw_repository|
         if raw_repository.exists?
           commits_log = raw_repository.commits_log_of_user_by_date(user)
           populated_timestamps =  if show_activity
-            populate_timestamps_by_project(commits_log, timestamps,
-                                           raw_repository)
-          else 
-            populate_timestamps(commits_log,timestamps)
-          end
+                                    populate_timestamps_by_project(commits_log,
+                                    timestamps, raw_repository)
+                                  else 
+                                    populate_timestamps(commits_log, timestamps)
+                                  end
           timestamps.merge!(populated_timestamps)
-
         end
       end
       timestamps
@@ -24,9 +22,8 @@ module Gitlab
         hash = { "#{timestamp_date}" => commits_count }
         if timestamps.has_key?("#{timestamp_date}")
           timestamps.merge!(hash) { |timestamp_date, commits_count,
-                                     new_commits_count| commits_count =
-                                                        commits_count.to_i +
-                                                        new_commits_count }
+                                    new_commits_count| commits_count =
+                                    commits_count.to_i + new_commits_count }
         else
           timestamps.merge!(hash)
         end

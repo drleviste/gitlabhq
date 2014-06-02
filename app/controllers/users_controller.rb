@@ -17,11 +17,11 @@ class UsersController < ApplicationController
     user_projects = @user.authorized_projects.accessible_to(@user)
     @user_projects = user_projects.map(&:repository)
 
-    @timestamps = Gitlab::Calendar.create_timestamp(@user_projects, @user, false)
-    @time_copy = Gitlab::Calendar.create_time_copy(@timestamps)
-    @timestart_year = Gitlab::Calendar.timestart_year(@timestamps)
-    @timestart_month = Gitlab::Calendar.timestart_month(@timestamps)
-    @last_commit_date = Gitlab::Calendar.last_commit_date(@timestamps)
+    @timestamps = Gitlab::CommitsCalendar.create_timestamp(@user_projects, @user, false)
+    @time_copy = Gitlab::CommitsCalendar.create_time_copy(@timestamps)
+    @timestart_year = Gitlab::CommitsCalendar.timestart_year(@timestamps)
+    @timestart_month = Gitlab::CommitsCalendar.timestart_month(@timestamps)
+    @last_commit_date = Gitlab::CommitsCalendar.last_commit_date(@timestamps)
   end
 
   def activities
@@ -29,8 +29,10 @@ class UsersController < ApplicationController
     user_projects = @user.authorized_projects.accessible_to(@user)
     @user_projects = user_projects.map(&:repository)
 
-    user_activities = Gitlab::Calendar.create_timestamp(@user_projects, @user, true)
-    user_activities = Gitlab::Calendar.commit_activity_match(user_activities, params[:date])
+    user_activities = Gitlab::CommitsCalendar.create_timestamp(@user_projects, @user,
+                                                        true)
+    user_activities = Gitlab::CommitsCalendar.commit_activity_match(user_activities,
+                                                             params[:date])
     render json: user_activities.to_json
   end
 
