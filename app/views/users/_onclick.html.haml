@@ -9,14 +9,14 @@
 
   #onClick-placeholder
     %span.onClicksecond
-    - if create_timestamp(@user_projects).empty?
+    - if @timestamps.empty?
       %span.activity_summary
-        %strong= #{@user.username}
+        %strong> #{@user.username}
         has no activity
     - else
       %span.activity_summary
-        %strong= #{@user.username}'s
-        last commit was on
+        %strong> #{@user.username}
+        's last commit was on
         %span.commit_date #{@last_commit_date}
 
     %hr.onclick_hr
