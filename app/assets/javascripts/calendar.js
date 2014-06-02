@@ -16,7 +16,7 @@ var cal = new CalHeatMap();
   cal.init({
     itemName: ["commit"],
     data: window.timestamps,
-    start: new Date(window.timestart_year, window.timestart_month),
+    start: new Date(CommitsCalendar.starting_year, CommitsCalendar.starting_month),
     domainLabelFormat: "%b",
     id : "cal-heatmap",
     domain : "month",

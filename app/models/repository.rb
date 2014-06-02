@@ -150,8 +150,10 @@ class Repository
   def commits_log_of_user_by_date(user)
     timestamps_by_user_from_graph_log(user).
       group_by { |commit_date| commit_date }.
-      inject({}) { |hash, (timestamp_date, commits)| hash[timestamp_date] = commits.count
-                                                                         hash }
+      inject({}) do |hash, (timestamp_date, commits)|
+        hash[timestamp_date] = commits.count
+        hash
+      end
   end
 
   def cache_key(type)

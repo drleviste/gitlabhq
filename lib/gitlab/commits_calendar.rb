@@ -21,9 +21,10 @@ module Gitlab
       commits_log.each do |timestamp_date, commits_count|
         hash = { "#{timestamp_date}" => commits_count }
         if timestamps.has_key?("#{timestamp_date}")
-          timestamps.merge!(hash) { |timestamp_date, commits_count,
-                                    new_commits_count| commits_count =
-                                    commits_count.to_i + new_commits_count }
+          timestamps.merge!(hash) do |timestamp_date, commits_count,
+            new_commits_count| commits_count = commits_count.to_i +
+            new_commits_count
+          end
         else
           timestamps.merge!(hash)
         end
@@ -34,6 +35,7 @@ module Gitlab
     def self.populate_timestamps_by_project(commits_log, timestamps,
                                             raw_repository)
       commits_log.each do |timestamp_date, commits_count|
+        binding.pry
         if timestamps.has_key?("#{timestamp_date}")
           timestamps["#{timestamp_date}"].
             merge!(raw_repository.path_with_namespace => commits_count)
@@ -46,25 +48,24 @@ module Gitlab
       timestamps
     end
 
-    def self.create_time_copy(timestamps)
-      time_copy = if timestamps.empty?
-                    DateTime.now.to_date
-                  else
-                    Time.at(timestamps.keys.first.to_i).to_date
-                  end
-      time_copy
+    def self.latest_commit_date(timestamps)
+      if timestamps.empty?
+        DateTime.now.to_date
+      else
+        Time.at(timestamps.keys.first.to_i).to_date
+      end
     end
 
-    def self.timestart_year(timestamps)
-      create_time_copy(timestamps).year - 1
+    def self.starting_year(timestamps)
+      latest_commit_date(timestamps).year - 1
     end
 
-    def self.timestart_month(timestamps)
-      create_time_copy(timestamps).month
+    def self.starting_month(timestamps)
+      latest_commit_date(timestamps).month
     end
 
     def self.last_commit_date(timestamps)
-      create_time_copy(timestamps).to_formatted_s(:long).to_s
+      latest_commit_date(timestamps).to_formatted_s(:long).to_s
     end
 
     def self.commit_activity_match(user_activities, date)
